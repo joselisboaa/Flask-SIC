@@ -54,3 +54,16 @@ Itens são mantidos no estoque das lojas e podem ser comprados por clientes.
    ![venv foto.png](..%2F..%2FDownloads%2Fvenv%20foto.png)
 
 2. No diretório raiz, execute `pip install -r requirements.txt` para instalar as dependências.
+
+
+### Referência das bibliotecas utilizadas
+
+[Flask](https://flask.palletsprojects.com/en/2.3.x/)  
+[Flask Smorest](https://flask-smorest.readthedocs.io/en/latest/)  
+[Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/)   
+[Psycopg](https://www.psycopg.org/)  
+[Alembic](https://alembic.sqlalchemy.org/en/latest/)  
+[Flask Migrate](https://flask-migrate.readthedocs.io/en/latest/)  
+[SQLAlchemy](https://www.sqlalchemy.org/)  
+[Python-dotenv](https://pypi.org/project/python-dotenv/)  
+[Marshmallow](https://marshmallow.readthedocs.io/en/stable/)  

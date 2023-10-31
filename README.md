@@ -7,14 +7,13 @@ Ele foi projetado para atender às seguintes regras de negócio:
 
 #### Lojas:
 
-Cada loja irá ter um cliente.  
+Cada loja pode ter um ou mais clientes.  
 Uma loja pode ter um ou vários fornecedores.  
 Cada loja pode listar diversos itens em seu estoque.
 
 #### Clientes:
 
 Um cliente pode estar associado a uma loja.  
-Um cliente pode fazer compras em diferentes lojas.
 
 #### Fornecedores:
 
@@ -25,6 +24,9 @@ Um fornecedor pode fornecer diversos itens para diferentes lojas.
 
 Cada item é associado a um fornecedor.  
 Itens são mantidos no estoque das lojas e podem ser comprados por clientes.
+
+![sic_db](https://github.com/joselisboaa/Flask-SIC/assets/67613937/3454dd26-ca6a-4fb0-9a9f-d23a53522a45)
+
 
 ### Funcionalidades
 * CRUD de Lojas

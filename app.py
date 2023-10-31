@@ -3,9 +3,9 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+@app.route('/api/v1/primeira-rota')
+def hello_world():
+    return 'Flask na SIC!'
 
 
 if __name__ == '__main__':

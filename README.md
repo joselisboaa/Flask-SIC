@@ -7,14 +7,13 @@ Ele foi projetado para atender às seguintes regras de negócio:
 
 #### Lojas:
 
-Cada loja irá ter um cliente.  
+Cada loja pode ter um ou mais clientes.  
 Uma loja pode ter um ou vários fornecedores.  
 Cada loja pode listar diversos itens em seu estoque.
 
 #### Clientes:
 
 Um cliente pode estar associado a uma loja.  
-Um cliente pode fazer compras em diferentes lojas.
 
 #### Fornecedores:
 
@@ -25,6 +24,9 @@ Um fornecedor pode fornecer diversos itens para diferentes lojas.
 
 Cada item é associado a um fornecedor.  
 Itens são mantidos no estoque das lojas e podem ser comprados por clientes.
+
+![sic_db](https://github.com/joselisboaa/Flask-SIC/assets/67613937/3454dd26-ca6a-4fb0-9a9f-d23a53522a45)
+
 
 ### Funcionalidades
 * CRUD de Lojas
@@ -51,7 +53,7 @@ Itens são mantidos no estoque das lojas e podem ser comprados por clientes.
 
     Sempre que for executar o projeto verifique se o ambiente virtual está ativado, como pode ser visto abaixo:
 
-   ![venv foto.png](..%2F..%2FDownloads%2Fvenv%20foto.png)
+    ![venv foto](https://github.com/joselisboaa/Flask-SIC/assets/67613937/bb42e351-4ec1-4bad-8b10-4dcc979e25dd)
 
 2. No diretório raiz, execute `pip install -r requirements.txt` para instalar as dependências.
 

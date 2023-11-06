@@ -1,12 +1,11 @@
 from flask import Flask
-
-app = Flask(__name__)
-
-
-@app.route('/api/v1/primeira-rota')
-def hello_world():
-    return 'Flask na SIC!'
+from config import create_default_configs
 
 
-if __name__ == '__main__':
-    app.run()
+def create_app():
+    app = Flask(__name__)
+
+    create_default_configs(app)
+
+    # O flask identifica o método que retorna a variável app e o executa
+    return app

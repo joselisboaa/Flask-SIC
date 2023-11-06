@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from flask_smorest import Api
 from flask_migrate import Migrate
 
+from api.controller import LojaBlueprint
 from db import db
 
 import os
@@ -31,9 +32,10 @@ def create_default_configs(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
+    db.init_app(app)
+
     Migrate(app=app, db=db, compare_type=True)
 
-    db.init_app(app)
-    app.config["API_TITLE"] = "SIC API"
-
     api = Api(app)
+
+    api.register_blueprint(LojaBlueprint)

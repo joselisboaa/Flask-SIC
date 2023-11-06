@@ -10,6 +10,6 @@ blp = Blueprint("Lojas", __name__, description="Operações de lojas")
 @blp.route("/v1/lojas")
 class Lojas(MethodView):
     @blp.arguments(LojaQuerySchema, location="query")
-    @blp.response(200, PlainLojaSchema)
+    @blp.response(200, PlainLojaSchema(many=True))
     def get(self, args):
         return LojaService().get_all()

@@ -1,6 +1,7 @@
 from flask import make_response, jsonify
 from domain.models import LojaModel
 from api.schemas import PlainLojaSchema
+from utils import QueryFormatter
 
 from db import db
 
@@ -10,7 +11,9 @@ class LojaService:
     def get_all(self):
         lojas = LojaModel.query.all()
 
-        return make_response(jsonify(lojas))
+        lojas_formatadas = QueryFormatter().query_list_to_schema_list(lojas, PlainLojaSchema)
+
+        return make_response(jsonify(lojas_formatadas))
 
     # método responsável por criar um registro de Loja no banco de dados
     def create(self, loja_data):
@@ -24,6 +27,23 @@ class LojaService:
                 "loja": PlainLojaSchema().dump(loja)
             }
         ), 201)
+
+    def update(self, loja_data, loja_id):
+        loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
+
+        self.update_loja(loja, loja_data)
+
+        return make_response(jsonify(
+            {
+                "message": "Loja atualizada com sucesso!",
+                "loja": PlainLojaSchema().dump(loja)
+            }
+        ), 200)
+
+    def update_loja(self, dados_loja: LojaModel, dados_loja_nova):
+        dados_loja.nome = dados_loja_nova["nome"]
+
+        self.save_loja(dados_loja)
 
     @staticmethod
     def save_loja(loja):

@@ -28,6 +28,7 @@ class LojaService:
             }
         ), 201)
 
+    # método responsável por atualizar um registro de Loja no banco de dados
     def update(self, loja_data, loja_id):
         loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
 

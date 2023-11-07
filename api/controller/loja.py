@@ -1,7 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint
 
-from domain.models import LojaModel
 from domain.services import LojaService
 from api.schemas import PlainLojaSchema, LojaQuerySchema
 
@@ -20,3 +19,10 @@ class Lojas(MethodView):
     def post(self, loja_data):
         return LojaService().create(loja_data)
 
+
+@blp.route("/v1/lojas/<int:loja_id>")
+class Loja(MethodView):
+    @blp.arguments(PlainLojaSchema)
+    @blp.response(200, PlainLojaSchema)
+    def put(self, loja_data, loja_id):
+        return LojaService().update(loja_data, loja_id)

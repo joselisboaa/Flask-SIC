@@ -1,8 +1,10 @@
 
 
 class QueryFormatter:
-    # Esse método servirá para podermos transformar os dados numa
-    # Lista de Schema para podermos fazer o jsonify
+    """
+        Esse método servirá para podermos transformar os dados numa
+        Lista de Schema para podermos fazer o jsonify
+    """
     def query_list_to_schema_list(self, query_result: list, schema):
         schematized_data_list = []
 

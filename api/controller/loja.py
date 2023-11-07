@@ -26,3 +26,16 @@ class Loja(MethodView):
     @blp.response(200, PlainLojaSchema)
     def put(self, loja_data, loja_id):
         return LojaService().update(loja_data, loja_id)
+
+    @blp.arguments(PlainLojaSchema)
+    @blp.response(200, PlainLojaSchema)
+    def patch(self, loja_data, loja_id):
+        return LojaService().patch(loja_data, loja_id)
+
+    @blp.response(200, PlainLojaSchema)
+    def get_by_id(self, loja_id):
+        return LojaService().get_by_id(loja_id)
+
+    @blp.response(204)
+    def delete(self, loja_id):
+        return LojaService().delete_by_id(loja_id)

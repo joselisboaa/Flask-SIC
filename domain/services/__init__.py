@@ -1,3 +1,2 @@
 from .loja import LojaService
-# from .cliente import ClienteService
-
+from .cliente import ClienteService

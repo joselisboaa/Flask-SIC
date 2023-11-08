@@ -4,7 +4,7 @@ from api.schemas import PlainLojaSchema
 
 class PlainClienteSchema(Schema):
     id = fields.Int(dump_only=True)
-    name = fields.Str(
+    nome = fields.Str(
         required=True,
         validate=validate.Length(
             min=3, max=255, error='O nome deve ter entre {min} e {max} caracteres.'
@@ -29,8 +29,11 @@ class PlainClienteSchema(Schema):
 
 
 class ClienteSchema(PlainClienteSchema):
-    loja_id = fields.Int(load_only=True)
-    loja = fields.Nested(PlainLojaSchema, dump_only=True)
+    loja_id = fields.Int(load_only=True, required=True,
+                         error_messages=dict(
+                             required="O campo é obrigatório."
+                         ))
+    loja = fields.Nested(PlainLojaSchema(), dump_only=True)
 
 
 class ClientQuerySchemas(Schema):

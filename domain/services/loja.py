@@ -1,7 +1,8 @@
 from flask import make_response, jsonify, Response
+
 from domain.models import LojaModel
 from api.schemas import PlainLojaSchema
-from utils import QueryFormatter
+from utils import QueryFormatter, NotFoundException, Http
 
 from db import db
 
@@ -32,6 +33,13 @@ class LojaService:
     def update(self, loja_data, loja_id):
         loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
 
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.PUT
+            )
+
         self.update_loja(loja, loja_data)
 
         return make_response(jsonify(
@@ -43,6 +51,13 @@ class LojaService:
 
     def patch(self, loja_data, loja_id):
         loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
+
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.PATCH
+            )
 
         self.update_partially_loja(loja, loja_data)
 
@@ -56,6 +71,13 @@ class LojaService:
     def get_by_id(self, loja_id):
         loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
 
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.GET
+            )
+
         return make_response(jsonify(
             {
                 "loja": PlainLojaSchema().dump(loja)
@@ -64,6 +86,13 @@ class LojaService:
 
     def delete_by_id(self, loja_id):
         loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
+
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.DELETE
+            )
 
         self.delete_loja(loja)
 

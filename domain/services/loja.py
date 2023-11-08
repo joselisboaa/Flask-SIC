@@ -1,7 +1,8 @@
-from flask import make_response, jsonify
+from flask import make_response, jsonify, Response
+
 from domain.models import LojaModel
 from api.schemas import PlainLojaSchema
-from utils import QueryFormatter
+from utils import QueryFormatter, NotFoundException, Http
 
 from db import db
 
@@ -32,6 +33,13 @@ class LojaService:
     def update(self, loja_data, loja_id):
         loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
 
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.PUT
+            )
+
         self.update_loja(loja, loja_data)
 
         return make_response(jsonify(
@@ -41,7 +49,61 @@ class LojaService:
             }
         ), 200)
 
+    def patch(self, loja_data, loja_id):
+        loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
+
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.PATCH
+            )
+
+        self.update_partially_loja(loja, loja_data)
+
+        return make_response(jsonify(
+            {
+                "message": "Loja atualizada com sucesso!",
+                "loja": PlainLojaSchema().dump(loja)
+            }
+        ), 200)
+
+    def get_by_id(self, loja_id):
+        loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
+
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.GET
+            )
+
+        return make_response(jsonify(
+            {
+                "loja": PlainLojaSchema().dump(loja)
+            }
+        ), 200)
+
+    def delete_by_id(self, loja_id):
+        loja = LojaModel.query.filter(LojaModel.id == loja_id).first()
+
+        if loja is None:
+            raise NotFoundException(
+                "Loja não foi encontrada",
+                "O id da loja inserido não existe no banco de dados",
+                Http.DELETE
+            )
+
+        self.delete_loja(loja)
+
+        return Response(status=204)
+
     def update_loja(self, dados_loja: LojaModel, dados_loja_nova):
+        dados_loja.nome = dados_loja_nova["nome"]
+
+        self.save_loja(dados_loja)
+
+    def update_partially_loja(self, dados_loja: LojaModel, dados_loja_nova):
         dados_loja.nome = dados_loja_nova["nome"]
 
         self.save_loja(dados_loja)
@@ -49,4 +111,9 @@ class LojaService:
     @staticmethod
     def save_loja(loja):
         db.session.add(loja)
+        db.session.commit()
+
+    @staticmethod
+    def delete_loja(loja):
+        db.session.delete(loja)
         db.session.commit()

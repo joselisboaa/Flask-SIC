@@ -1,1 +1,1 @@
-from app import app
+from .global_handler import global_error_handling

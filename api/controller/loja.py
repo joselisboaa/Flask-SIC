@@ -33,7 +33,7 @@ class Loja(MethodView):
         return LojaService().patch(loja_data, loja_id)
 
     @blp.response(200, PlainLojaSchema)
-    def get_by_id(self, loja_id):
+    def get(self, loja_id):
         return LojaService().get_by_id(loja_id)
 
     @blp.response(204)

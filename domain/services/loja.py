@@ -2,7 +2,9 @@ from flask import make_response, jsonify, Response
 
 from domain.models import LojaModel
 from api.schemas import PlainLojaSchema
-from utils import QueryFormatter, NotFoundException, Http
+
+from utils import QueryFormatter, Http
+from utils.exceptions import NotFoundException, UniqueException
 
 from db import db
 
@@ -19,6 +21,13 @@ class LojaService:
     # método responsável por criar um registro de Loja no banco de dados
     def create(self, loja_data):
         loja = LojaModel(**loja_data)
+
+        if self.checar_se_nome_ja_foi_utilizado(loja_data):
+            raise UniqueException(
+                "O nome da loja deve ser único",
+                "O nome da loja que foi inserido já existe.",
+                Http.POST
+            )
 
         self.save_loja(loja)
 
@@ -40,6 +49,13 @@ class LojaService:
                 Http.PUT
             )
 
+        if self.checar_se_nome_ja_foi_utilizado(loja_data):
+            raise UniqueException(
+                "O nome da loja deve ser único",
+                "O nome da loja que foi inserido já existe.",
+                Http.PUT
+            )
+
         self.update_loja(loja, loja_data)
 
         return make_response(jsonify(
@@ -56,6 +72,13 @@ class LojaService:
             raise NotFoundException(
                 "Loja não foi encontrada",
                 "O id da loja inserido não existe no banco de dados",
+                Http.PATCH
+            )
+
+        if self.checar_se_nome_ja_foi_utilizado(loja_data):
+            raise UniqueException(
+                "O nome da loja deve ser único",
+                "O nome da loja que foi inserido já existe.",
                 Http.PATCH
             )
 
@@ -107,6 +130,10 @@ class LojaService:
         dados_loja.nome = dados_loja_nova["nome"]
 
         self.save_loja(dados_loja)
+
+    @staticmethod
+    def checar_se_nome_ja_foi_utilizado(loja_data):
+        return LojaModel.query.filter(LojaModel.nome == loja_data["nome"]) is not None
 
     @staticmethod
     def save_loja(loja):

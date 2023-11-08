@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from flask_smorest import Api
 from flask_migrate import Migrate
 
-from api.controller import LojaBlueprint
+from api.controller import LojaBlueprint, ClienteBlueprint
 from db import db
 
 import os
@@ -39,3 +39,4 @@ def create_default_configs(app):
     api = Api(app)
 
     api.register_blueprint(LojaBlueprint)
+    api.register_blueprint(ClienteBlueprint)

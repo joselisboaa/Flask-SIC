@@ -12,7 +12,7 @@ class PlainClienteSchema(Schema):
         error_messages=dict(
             required="O campo é obrigatório.",
             null="O campo não pode ser nulo.",
-            invalid="O campo só pode receber strings"
+            invalid="O campo só pode receber strings."
         )
     )
     endereco = fields.Str(
@@ -23,7 +23,7 @@ class PlainClienteSchema(Schema):
         error_messages=dict(
             required="O campo é obrigatório.",
             null="O campo não pode ser nulo.",
-            invalid="O campo só pode receber strings"
+            invalid="O campo só pode receber strings."
         )
     )
 

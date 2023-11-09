@@ -24,7 +24,7 @@ class LojaService:
 
         if self.checar_se_nome_ja_foi_utilizado(loja_data):
             raise UniqueException(
-                "O nome da loja deve ser único",
+                "O nome da loja deve ser único.",
                 "O nome da loja que foi inserido já existe.",
                 Http.POST
             )
@@ -44,14 +44,14 @@ class LojaService:
 
         if loja is None:
             raise NotFoundException(
-                "Loja não foi encontrada",
-                "O id da loja inserido não existe no banco de dados",
+                "Loja não foi encontrada.",
+                "O id da loja inserido não existe no banco de dados.",
                 Http.PUT
             )
 
         if self.checar_se_nome_ja_foi_utilizado(loja_data):
             raise UniqueException(
-                "O nome da loja deve ser único",
+                "O nome da loja deve ser único.",
                 "O nome da loja que foi inserido já existe.",
                 Http.PUT
             )
@@ -70,14 +70,14 @@ class LojaService:
 
         if loja is None:
             raise NotFoundException(
-                "Loja não foi encontrada",
+                "Loja não foi encontrada.",
                 "O id da loja inserido não existe no banco de dados",
                 Http.PATCH
             )
 
         if self.checar_se_nome_ja_foi_utilizado(loja_data):
             raise UniqueException(
-                "O nome da loja deve ser único",
+                "O nome da loja deve ser único.",
                 "O nome da loja que foi inserido já existe.",
                 Http.PATCH
             )
@@ -133,7 +133,7 @@ class LojaService:
 
     @staticmethod
     def checar_se_nome_ja_foi_utilizado(loja_data):
-        return LojaModel.query.filter(LojaModel.nome == loja_data["nome"]) is not None
+        return LojaModel.query.filter(LojaModel.nome == loja_data["nome"]).first() is not None
 
     @staticmethod
     def save_loja(loja):

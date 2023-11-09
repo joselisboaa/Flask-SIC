@@ -17,12 +17,9 @@ configurações de migrate e etc.
 def create_default_configs(app):
     load_dotenv()
 
-    app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["DEBUG"] = True
-
     app.config["API_TITLE"] = "SIC API"
     app.config["API_VERSION"] = "v1"
-    app.config["OPENAPI_VERSION"] = "3.0.3"
+    app.config["OPENAPI_VERSION"] = "3.1.0"
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/"
     app.config[
